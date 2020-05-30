@@ -1,4 +1,3 @@
-I will realse the code after camara ready.
 First, please compile source code files in the folder "code". For example, 
 
 g++ ./code/*.cpp -o RWM
