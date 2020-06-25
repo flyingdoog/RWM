@@ -156,7 +156,7 @@ void generalCase(string path,string path2,string cmtyPath) {
 		apre = sumpre / (count);
 
 		if (!RWM_mute)
-			cout << "query "<< i << " current average pre: " << apre << " rec: " << arecall << " f1: " << af1 << "\r";
+			cout << "query "<< i << " current average pre: " << apre << " rec: " << arecall << " f1: " << af1 << endl;
 		// cout.flush();
 		count+=1;
 	}
@@ -184,7 +184,7 @@ void print_help(){
 			cout << "\nEXAMPLE:\n" <<
 			"./RWM -d ./data/20news "<< endl;
 		cout << "Parameters:\n" <<
-			"-d data directory path\n" <<
+			"-d dataset name, 6ng, 9ng,...\n" <<
 			"-n the target network\n" <<
 			"-a alpha: default: 0.9\n" <<
 			"-l lamda: default: 0.7 \n" <<
@@ -210,7 +210,7 @@ int	main_entrance(int argc, char** argv){
 
 	string dataset = "6ng";
 
-	string dirPath = "C:/Users/dul262/Desktop/codes/data/"+dataset;
+	string dirPath = "./data/"+dataset;
 	string network_path = dirPath+"/networks.txt";
 	string cross_network_path2 = dirPath+"/inter.txt";
 	string cmtyPath = dirPath+"/cmty"+to_string(qlayer)+".txt";
@@ -226,7 +226,7 @@ int	main_entrance(int argc, char** argv){
 			dataset = sToken2;
 			// flog <<"data "<<dataset <<" ";
 			settings += "data "+dataset+" ";
-			dirPath= "C:/Users/dul262/Desktop/codes/data/"+sToken2;
+			dirPath= "./data/"+sToken2;
 			network_path = dirPath+"/networks.txt";
 			cross_network_path2 = dirPath+"/inter.txt";
 			cmtyPath = dirPath+"/cmty"+to_string(qlayer)+".txt";
