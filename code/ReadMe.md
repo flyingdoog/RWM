@@ -23,7 +23,7 @@
 
 # Input file format
 
- ## Input Network data: edge list
+ ## Edge list
  
 The edge lists of networks are store in path_to_your_data_directory/networks.txt
 
@@ -70,7 +70,7 @@ For unweighted graph, the input format for an edge is "source_node	target_node" 
 25	346495
 ```
 
-## cross networks edges
+## Cross networks edges
 
 The edge lists of cross network graphs are store in path_to_your_data_directory/inter.txt
 
@@ -97,7 +97,7 @@ For example
 Both weighted and unweighted graphs are supported. Formats are similar to the above networks.
 
 
-## community file for evaluation
+## Community file for evaluation
 The community of nodes in network $i$ are store in path_to_your_data_directory/cmty$i$.txt
 with each line represents a community, splitted with '\t'
 
