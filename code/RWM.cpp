@@ -1,6 +1,6 @@
 //Main entrance of the RWM
 //Release Version
-//C++ implementation for submission "A Random Walk based Approach for Local Community Detection on Multiple Networks"
+//C++ implementation for submission "Local Community Detection in Multiple Networks"
 //The demo dataset used is 20news-6ng. For other datasets, please refer to references.
 
 #include "Graph.h"
