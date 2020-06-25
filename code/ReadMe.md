@@ -1,26 +1,24 @@
-First, please compile source code files in the folder "code". For example, 
+# Complie
+  g++ ./code/*.cpp -o RWM
 
-g++ ./code/*.cpp -o RWM
 
-The output executable file is RWM (linux version)
-
-You can execute RWM and follow instructions to run a demo. For example:
+# Run
 ./RWM -d ./data/6ng
 
 
-Parameters:
+# Parameters:
 
--d data directory path
--n the target network
--a alpha: default: 0.9
--l lamda: default: 0.7
--t theta: default: 0.9
--e epsilon: default: 0.01
+  -d data directory path
+  -n the target network
+  -a alpha: default: 0.9
+  -l lamda: default: 0.7
+  -t theta: default: 0.9
+  -e epsilon: default: 0.01
 
 
-For the input files:
+# Input file format.
 
-1. Input Network data: edge list
+ ##Input Network data: edge list
 The edge lists of networks are store in path_to_your_data_directory/networks.txt
 
 The first line expresses the number of networks, and the second line points out whether the networks are directed or not.
@@ -63,7 +61,7 @@ source_node	target_node
 14	244916
 25	346495
 
-2. cross networks edges:
+## cross networks edges:
 
 The edge lists of cross network graphs are store in path_to_your_data_directory/inter.txt
 Each network starts with 
@@ -84,10 +82,10 @@ For example
 Both weighted and unweighted graphs are supported. Formats are similar to the above networks.
 
 
-3. community file
+## community file for evaluation
 The community of nodes in network $i$ are store in path_to_your_data_directory/cmty$i$.txt
 with each line represents a community, splitted with '\t'
 
 
-Output:
+#Output
 This version will not write any files to the disk. The terminal will output the accurarcy results (Macro pre, Macro Recall, Macro F1).
