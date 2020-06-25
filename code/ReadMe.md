@@ -23,7 +23,7 @@
 
 # Input file format.
 
- ##Input Network data: edge list
+ ## Input Network data: edge list
  
 The edge lists of networks are store in path_to_your_data_directory/networks.txt
 
