@@ -5,7 +5,6 @@ KDD 2020
 
 For details about how to use the code, refer to code/ReadMe.
 
-This version of code may contains some debug parts.  I will update a release version later.
 
 ## References
 ```
