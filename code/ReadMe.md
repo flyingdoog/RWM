@@ -8,17 +8,17 @@
 
 # Parameters:
 
-  -d data directory path
+  * -d data directory path
   
-  -n the target network
+  * -n the target network
+   
+  * -a alpha: default: 0.9
   
-  -a alpha: default: 0.9
+  * -l lambda: default: 0.7
   
-  -l lambda: default: 0.7
+  * -t theta: default: 0.9
   
-  -t theta: default: 0.9
-  
-  -e epsilon: default: 0.01
+  * -e epsilon: default: 0.01
 
 
 # Input file format.
@@ -31,58 +31,58 @@ The first line expresses the number of networks, and the second line points out 
 
 For example:
 
-  #networks:5
+  * #networks:5
 
-  #directed:0
+  * #directed:0
 
 
 Then, edge lists of networks are followed. networks starts by '--'
 
 For exmaple
 
-  --0--
+  * --0--
 
-  /*edge lists of network 0*/
+  * /*edge lists of network 0*/
 
-  --1--
+  * --1--
 
-  /*edge lists of network 1*/
+  * /*edge lists of network 1*/
 
-  ...
+  * ...
 
-  --k--
+  * --k--
 
-  /*edge lists of network k*/
+  * /*edge lists of network k*/
 
 RWM supports both weighted and unweighted networks.
 
 For weighted networks, the input format for an edge is "source_node	target_node	weight" (delimiter is "\t"). For example:
 
-source_node	target_node	weight
+  * source_node	target_node	weight
 
-  1	88160	1.3
+  * 1	88160	1.3
 
-  22	118052	2.1
+  * 22	118052	2.1
 
-  35	161555	7.5
+  * 35	161555	7.5
 
-  14	244916	0.5
+  * 14	244916	0.5
 
-  25	346495	3.8
+  * 25	346495	3.8
 
 For unweighted graph, the input format for an edge is "source_node	target_node" (delimiter is "\t"). For example:
 
-  source_node	target_node
+  * source_node	target_node
 
-  1	88160
+  * 1	88160
 
-  22	118052
+  * 22	118052
 
-  35	161555
+  * 35	161555
 
-  14	244916
+  * 14	244916
 
-  25	346495
+  * 25	346495
 
 ## cross networks edges:
 
@@ -90,27 +90,27 @@ The edge lists of cross network graphs are store in path_to_your_data_directory/
 
 Each network starts with 
 
-  =i,j=
+=i,j=
 
-  and ends with 
+and ends with 
 
-  --end--
+--end--
 
-  where i and j are networks the graph connected.
+where i and j are networks the graph connected.
 
-  For example
+For example
 
-  =0,1=
+  * =0,1=
 
-  /*cross networks edges from  network 0 to network 1*/
+  * /*cross networks edges from  network 0 to network 1*/
 
-  --end--
+  * --end--
 
-  =0,2=
+  * =0,2=
 
-  /*cross networks edges from  network 0 to network 2*/
+  * /*cross networks edges from  network 0 to network 2*/
 
-  ....
+  * ....
 
 Both weighted and unweighted graphs are supported. Formats are similar to the above networks.
 
