@@ -52,31 +52,23 @@ RWM supports both weighted and unweighted networks.
 
 For weighted networks, the input format for an edge is "source_node	target_node	weight" (delimiter is "\t"). For example:
 
-  * source_node	target_node	weight
-
-  * 1	88160	1.3
-
-  * 22	118052	2.1
-
-  * 35	161555	7.5
-
-  * 14	244916	0.5
-
-  * 25	346495	3.8
+```
+1	88160	1.3
+22	118052	2.1
+35	161555	7.5
+14	244916	0.5
+25	346495	3.8
+```
 
 For unweighted graph, the input format for an edge is "source_node	target_node" (delimiter is "\t"). For example:
 
-  * source_node	target_node
-
-  * 1	88160
-
-  * 22	118052
-
-  * 35	161555
-
-  * 14	244916
-
-  * 25	346495
+ ```
+1	88160
+22	118052
+35	161555
+14	244916
+25	346495
+```
 
 ## cross networks edges:
 
@@ -93,18 +85,14 @@ and ends with
 where i and j are networks the graph connected.
 
 For example
-
-  * =0,1=
-
-  * /*cross networks edges from  network 0 to network 1*/
-
-  * --end--
-
-  * =0,2=
-
-  * /*cross networks edges from  network 0 to network 2*/
-
-  * ....
+```
+=0,1=
+/*cross networks edges from  network 0 to network 1*/
+--end--
+=0,2=
+/*cross networks edges from  network 0 to network 2*/
+....
+```
 
 Both weighted and unweighted graphs are supported. Formats are similar to the above networks.
 
