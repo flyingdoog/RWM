@@ -6,7 +6,7 @@
 ./RWM -d ./data/6ng
 
 
-# Parameters:
+# Parameters
 
   * -d data directory path
   
@@ -21,7 +21,7 @@
   * -e epsilon: default: 0.01
 
 
-# Input file format.
+# Input file format
 
  ## Input Network data: edge list
  
@@ -70,7 +70,7 @@ For unweighted graph, the input format for an edge is "source_node	target_node" 
 25	346495
 ```
 
-## cross networks edges:
+## cross networks edges
 
 The edge lists of cross network graphs are store in path_to_your_data_directory/inter.txt
 
