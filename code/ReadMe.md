@@ -30,29 +30,23 @@ The edge lists of networks are store in path_to_your_data_directory/networks.txt
 The first line expresses the number of networks, and the second line points out whether the networks are directed or not.
 
 For example:
-
-  * #networks:5
-
-  * #directed:0
-
+```
+#networks:5
+#directed:0
+```
 
 Then, edge lists of networks are followed. networks starts by '--'
 
 For exmaple
-
-  * --0--
-
-  * /*edge lists of network 0*/
-
-  * --1--
-
-  * /*edge lists of network 1*/
-
-  * ...
-
-  * --k--
-
-  * /*edge lists of network k*/
+```
+--0--
+/*edge lists of network 0*/
+--1--
+/*edge lists of network 1*/
+...
+--k--
+/*edge lists of network k*/
+```
 
 RWM supports both weighted and unweighted networks.
 
