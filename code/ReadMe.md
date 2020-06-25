@@ -120,5 +120,5 @@ The community of nodes in network $i$ are store in path_to_your_data_directory/c
 with each line represents a community, splitted with '\t'
 
 
-#Output
+# Output
 This version will not write any files to the disk. The terminal will output the accurarcy results (Macro pre, Macro Recall, Macro F1).
