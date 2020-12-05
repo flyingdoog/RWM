@@ -3,7 +3,7 @@
 
 
 # Run
-./RWM -d ./data/6ng
+./RWM -d 6ng
 
 
 # Parameters
