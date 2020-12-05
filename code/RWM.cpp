@@ -182,7 +182,7 @@ void simpleCase(string path, string cmtyPath) {
 
 void print_help(){
 			cout << "\nEXAMPLE:\n" <<
-			"./RWM -d ./data/20news "<< endl;
+			"./RWM -d 6ng "<< endl;
 		cout << "Parameters:\n" <<
 			"-d dataset name, 6ng, 9ng,...\n" <<
 			"-n the target network\n" <<
