@@ -1,7 +1,8 @@
 # RWM
-This is a C++ implementation of the paper: Local Community Detection in Multiple Networks
+This is a C++ implementation of the paper: Local Community Detection in Multiple Networks (KDD 2020) & Random Walk on Multiple Networks (Under review)
 
-KDD 2020
+
+
 
 For details about how to use the code, refer to code/ReadMe.
 
