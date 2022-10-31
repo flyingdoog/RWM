@@ -1,7 +1,6 @@
 //Main entrance of the RWM
 //Release Version
-//C++ implementation for submission "Local Community Detection in Multiple Networks"
-//The demo dataset used is 20news-6ng. For other datasets, please refer to references.
+//C++ implementation for submission "Random Walk on Multiple Networks"
 
 #include "Graph.h"
 #include"debug.h"
@@ -23,22 +22,17 @@ int min_cmty_size = 5;
 int max_cmty_size = 200;
 bool USETOPK = false;
 Wmodel wmodel = MODEL_COSINE;
-uint MAXITE1st=5;
-uint step =1;
-ofstream flog("./tuning.txt",ios::app);
-int ite1st =-1;
-string settings = "";
-int RWM_mute = 0;
+uint MAXITE1st=10;
+
 
 void readCmt(string cmty, vector<set<unsigned int>> &gts) {
-	ifstream fin(cmty);
-	string line;
-	assert (!fin.fail()); 
 
+	ifstream fin(cmty);
 	if(!fin){
 		cout<<"community file "<<cmty<<" not found"<<endl;
 		exit(1);
 	}
+	string line;
 	vector<string> ss;
 	while (!fin.eof()) {
 		getline(fin, line);
@@ -51,7 +45,6 @@ void readCmt(string cmty, vector<set<unsigned int>> &gts) {
 			cmt1.insert(atoi(vite->c_str()));
 		}
 	}
-	fin.close();
 }
 
 void evaluate(const vector<unsigned int> &res, const set<unsigned int> &gt, double &pre, double &rec, double &f1) {
@@ -103,6 +96,7 @@ void generalCase(string path,string path2,string cmtyPath) {
 
 	int nmbofLayer = mgraph.getNmbofLayer();
 
+
 	double apre = 0, arecall = 0, af1 = 0, sumpre = 0, sumrecall = 0, sumf1 = 0;
 	double apre2 = 0, arecall2 = 0, af12 = 0, sumpre2 = 0, sumrecall2 = 0, sumf12 = 0;
 	uint count = 1;
@@ -114,20 +108,14 @@ void generalCase(string path,string path2,string cmtyPath) {
 		weights[i][i] = selfsimi;
 	}
 
-	int step_t = step;
-	clock_t    start, end;
-	start = std::clock();
-	for (unsigned int i = 1; i <= qnodesize; i+= step_t) {
-		step_t =1;
-
+	for (unsigned int i = 1; i <= qnodesize; i+= 1) {
 		if (labels[i] <0 )
 			continue;
-	
 		if (mgraph.getDegree(qlayer, i) == 0)
 			continue;
-		if (!RWM_mute)
-			cout << i << "\r";
-		step_t = step;
+
+		cout << i << "\r";
+		
 		unsigned int querynode = i;
 		uint label = labels[querynode];
 		double f1 = 0, pre = 0, rec = 0;
@@ -155,19 +143,12 @@ void generalCase(string path,string path2,string cmtyPath) {
 		arecall = sumrecall / (count);
 		apre = sumpre / (count);
 
-		if (!RWM_mute)
-			cout << "query "<< i << " current average pre: " << apre << " rec: " << arecall << " f1: " << af1 << endl;
-		// cout.flush();
+		cout << "query "<< i << " current average pre: " << apre << " rec: " << arecall << " f1: " << af1 << "\r";
+		cout.flush();
 		count+=1;
 	}
 
 	cout << "RWM:  Macro results" << " pre: " << apre << " rec: " << arecall << " f1: " << af1 << endl;
-	end = std::clock();
-	cout << (std::clock() - start) << "\t" << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) / count << std::endl;
-	flog << settings <<endl;
-	flog << "RWM:  Macro results" << " pre: " << apre << " rec: " << arecall << " f1: " << af1 << "\t"<<(std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) / count << std::endl;
-	flog << endl;
-
 	delete [] labels;
 	for (uint i = 0; i < mgraph.getNmbofLayer(); i++)
 		delete[] weights[i];
@@ -175,16 +156,11 @@ void generalCase(string path,string path2,string cmtyPath) {
 }
 
 
-void simpleCase(string path, string cmtyPath) {
-	cout<<"not implemented yet"<<endl;
-
-}
-
 void print_help(){
 			cout << "\nEXAMPLE:\n" <<
-			"./RWM -d 6ng "<< endl;
+			"./RWM -d ./data/20news "<< endl;
 		cout << "Parameters:\n" <<
-			"-d dataset name, 6ng, 9ng,...\n" <<
+			"-d data directory path\n" <<
 			"-n the target network\n" <<
 			"-a alpha: default: 0.9\n" <<
 			"-l lamda: default: 0.7 \n" <<
@@ -199,18 +175,7 @@ int	main_entrance(int argc, char** argv){
 	lamda = 0.7;
 	theta = 0.9;
 	epsilon = 1e-2;
-
-	vector<string> simpleDatasets; simpleDatasets.push_back("rm");simpleDatasets.push_back("brainNet");
-	vector<string> generalDatasets;
-	generalDatasets.push_back("6ng");
-	generalDatasets.push_back("9ng");
-	generalDatasets.push_back("dblp");
-	generalDatasets.push_back("citeseer");
-
-
-	string dataset = "6ng";
-
-	string dirPath = "./data/"+dataset;
+	string dirPath = "./data/20news";
 	string network_path = dirPath+"/networks.txt";
 	string cross_network_path2 = dirPath+"/inter.txt";
 	string cmtyPath = dirPath+"/cmty"+to_string(qlayer)+".txt";
@@ -223,86 +188,42 @@ int	main_entrance(int argc, char** argv){
 		string sToken2 = argv[nIdx + 1];
 		nIdx = nIdx + 2;
 		if (sToken1.compare("-d") == 0) { // Input file name for nodes of the networks
-			dataset = sToken2;
-			// flog <<"data "<<dataset <<" ";
-			settings += "data "+dataset+" ";
-			dirPath= "./data/"+sToken2;
+			dirPath= sToken2;
 			network_path = dirPath+"/networks.txt";
 			cross_network_path2 = dirPath+"/inter.txt";
 			cmtyPath = dirPath+"/cmty"+to_string(qlayer)+".txt";
 		}
 
-		else if (sToken1.compare("-n") == 0) { // the target network
+		else if (sToken1.compare("-n") == 0) { // Input file name for outputfile
 			qlayer = atoi(sToken2.c_str());
-			// flog <<"qlayer "<<qlayer <<" ";
-			settings +="qlayer " + std::to_string(qlayer) +" ";
 			cmtyPath = dirPath+"/cmty"+to_string(qlayer)+".txt";
 		}
 
 		else if (sToken1.compare("-a") == 0) { // parameter: aplha
 			alpha = atof(sToken2.c_str());
-			// flog <<"alpha "<<alpha <<" ";
-			settings +="alpha " + std::to_string(alpha) +" ";
 		}
 
 		else if (sToken1.compare("-l") == 0) {// parameter: beta
 			lamda = atof(sToken2.c_str());
-			// flog <<"lamda "<<lamda <<" ";
-			settings +="lamda " + std::to_string(lamda) +" ";
 		}
 
 		else if (sToken1.compare("-t") == 0) { // parameter: theta
 			theta = atof(sToken2.c_str());
-			// flog <<"theta "<<theta <<" ";
-			settings +="theta " + std::to_string(theta) +" ";
 		}
 
 		else if (sToken1.compare("-e") == 0) {// parameter: gamma_W
 			epsilon_matrix = atof(sToken2.c_str());
-			// flog <<"epsilon_matrix "<<epsilon_matrix <<" ";
-			settings +="epsilon_matrix " + std::to_string(epsilon_matrix) +" ";
 		}
-		
-		else if (sToken1.compare("-s") == 0) {// parameter: gamma_W
-			step = atoi(sToken2.c_str());
-			// flog <<"step "<<step <<" ";
-			settings +="step " + std::to_string(step) +" ";
-		}
-
-		else if (sToken1.compare("-m") == 0) {// parameter: gamma_W
-			RWM_mute = atoi(sToken2.c_str());
-		}
-
-		else if (sToken1.compare("-min") == 0) {// parameter: gamma_W
-			min_cmty_size = atoi(sToken2.c_str());
-			// flog <<"min_cmty_size "<<min_cmty_size <<" ";
-			settings +="min_cmty_size " + std::to_string(min_cmty_size) +" ";
-		}
-		
-		else if (sToken1.compare("-max") == 0) {// parameter: gamma_W
-			max_cmty_size = atoi(sToken2.c_str());
-			// flog <<"max_cmty_size "<<max_cmty_size <<" ";
-			settings +="max_cmty_size " + std::to_string(max_cmty_size) +" ";
-		}
-
-		else if (sToken1.compare("-ite1st") == 0) {// parameter: gamma_W
-			ite1st = atoi(sToken2.c_str());
-			// flog <<"ite1st "<<ite1st <<endl;
-			settings +="ite1st " + std::to_string(ite1st) +" ";
-		}
-
 		else{
 			print_help();
 			return 1;
 		}
+
+
+
 	}
-	if(std::find(simpleDatasets.begin(),simpleDatasets.end(),dataset)!=simpleDatasets.end())
-		simpleCase(network_path,cmtyPath);
-	else if(std::find(generalDatasets.begin(),generalDatasets.end(),dataset)!=generalDatasets.end())
-		generalCase(network_path,cross_network_path2,cmtyPath);
-	else
-		cout<<"dataset error"<<endl;
-	flog.close();
+
+	generalCase(network_path,cross_network_path2,cmtyPath);
 	return 0;
 
 }
